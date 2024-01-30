@@ -22,12 +22,11 @@ function App() {
   const [correctCounter, setCorrectCounter] = useState(0)
   const [wrongCounter, setWrongCounter] = useState(0)
   // const [wordList, setWordList] = useState<Array<CardInterface>>([])
-  useScript("https://cdn.jsdelivr.net/npm/mobile-drag-drop@2.3.0-rc.2/index.min.js")
-// options are optional ;)
-polyfill({
-  // use this to make use of the scroll behaviour
-  dragImageTranslateOverride: scrollBehaviourDragImageTranslateOverride
-});
+  // useScript("https://cdn.jsdelivr.net/npm/mobile-drag-drop@2.3.0-rc.2/index.min.js")
+  polyfill({
+    // use this to make use of the scroll behaviour
+    dragImageTranslateOverride: scrollBehaviourDragImageTranslateOverride
+  });
   function nextCard() {
     console.log(wordList.length);
     const index = Math.floor(Math.random() * (wordList.length - 1));
@@ -83,7 +82,9 @@ polyfill({
       <div className="row2">
         <DropArea id="das" type="das" nextCard={nextCard} updateCounter={updateCounter}>Das</DropArea>
       </div>
-      <Info correctCounter={correctCounter} wrongCounter={wrongCounter} lastWord={previousCard}></Info>
+      <div className="info">
+        <Info correctCounter={correctCounter} wrongCounter={wrongCounter} lastWord={previousCard}></Info>
+      </div>
     </div>
   );
 }

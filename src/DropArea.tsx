@@ -8,6 +8,7 @@ export const DropArea = ({id, type, nextCard, updateCounter, children}: {id: str
         e.preventDefault();
         if (e.target instanceof HTMLElement) {
             let elem = document.getElementById(e.target.id)!;
+            elem.style.borderColor = "white"
             elem.style.background = "gray";
             elem.style.transition = "none";
         }
@@ -18,29 +19,31 @@ export const DropArea = ({id, type, nextCard, updateCounter, children}: {id: str
         // e.preventDefault();
         if (e.target instanceof HTMLElement) {
             let elem = document.getElementById(e.target.id)!
-            elem.style.background = "white"
+            elem.style.background = getComputedStyle(document.documentElement).getPropertyValue('--background-color')
+            elem.style.borderColor = "gray";
         }
     }
     
     function handleDrop(e: React.DragEvent) {
         // e.preventDefault();
         const artikel = e.dataTransfer.getData("artikel") as ArtikelType;
-        console.log("Artikel:" + artikel)
         if (e.target instanceof HTMLElement) {
             let elem = document.getElementById(e.target.id)!
-            elem.style.transition = "background 1s cubic-bezier(0.22, 0.61, 0.36, 1)"
+            // elem.style.transition = "background 1s cubic-bezier(0.22, 0.61, 0.36, 1)"
             if (type === artikel) {
-                elem.style.background = "green";
+                elem.style.background = "hsl(120 74% 60%)";
                 setTimeout(() => {
-                    elem.style.background = "white"
-                }, 900)
+                    elem.style.transition = "all 1s linear"
+                    handleDragLeave(e)
+                }, 100)
                 updateCounter(true);
             }
             else {
-                elem.style.background = "red";
+                elem.style.background = "hsl(0 95% 59%)";
                 setTimeout(() => {
-                    elem.style.background = "white"
-                }, 900)
+                    elem.style.transition = "all 1s linear"
+                    handleDragLeave(e)
+                }, 100)
                 updateCounter(false);
             }
         }
