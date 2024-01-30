@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { Card, CardInterface } from './Card';
 import DropArea from './DropArea';
 import { Info } from "./Info";
-import list from './assets/nouns.txt';
 import useScript from "./hooks/useScript";
 import './styles.css';
 
@@ -39,8 +38,8 @@ function App() {
 
   useEffect(() =>  {
     async function loadWordList() {
-      const s = await fetch(list).then(list => list.text());
-      const arr = s.split('\r\n')
+      const s = await fetch("/nouns.txt").then(list => list.text());
+      const arr = s.split(/\r?\n|\r|\n/g)
       const newList: Array<{word: string, artikel: ArtikelType, translation: string}> = []
       arr.forEach((line) => {
         const [translation, artikel, word] = line.split(";");
