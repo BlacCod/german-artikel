@@ -1,10 +1,15 @@
 
+import { polyfill } from "mobile-drag-drop";
 import React, { useEffect, useState } from "react";
 import { Card, CardInterface } from './Card';
 import DropArea from './DropArea';
 import { Info } from "./Info";
 import list from './assets/nouns.txt';
+import useScript from "./hooks/useScript";
 import './styles.css';
+
+// optional import of scroll behaviour
+import { scrollBehaviourDragImageTranslateOverride } from "mobile-drag-drop/scroll-behaviour";
 
 export type ArtikelType = 'der' | 'die' | 'das';
 const wordList: Array<{word: string, artikel: ArtikelType, translation: string}> = []
@@ -17,7 +22,12 @@ function App() {
   const [correctCounter, setCorrectCounter] = useState(0)
   const [wrongCounter, setWrongCounter] = useState(0)
   // const [wordList, setWordList] = useState<Array<CardInterface>>([])
-
+  useScript("https://cdn.jsdelivr.net/npm/mobile-drag-drop@2.3.0-rc.2/index.min.js")
+// options are optional ;)
+polyfill({
+  // use this to make use of the scroll behaviour
+  dragImageTranslateOverride: scrollBehaviourDragImageTranslateOverride
+});
   function nextCard() {
     console.log(wordList.length);
     const index = Math.floor(Math.random() * (wordList.length - 1));
@@ -62,6 +72,7 @@ function App() {
   
   return (
     <div className="App">
+      {/* <script src="https://cdn.jsdelivr.net/npm/mobile-drag-drop@2.3.0-rc.2/index.min.js"></script> */}
       <div className="row1">
         <DropArea id="der" type="der" nextCard={nextCard} updateCounter={updateCounter}>Der</DropArea>
         <DropArea id="die" type="die" nextCard={nextCard} updateCounter={updateCounter}>Die</DropArea>

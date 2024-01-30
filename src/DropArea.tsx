@@ -58,7 +58,7 @@ export const DropArea = ({id, type, nextCard, updateCounter, children}: {id: str
     // })
 
     return (
-        <div className="drop-area" id={id} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={(e) => handleDrop(e)} >
+        <div className="drop-area" id={id} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={(e) => handleDrop(e)} onDragEnter={(e) => e.preventDefault()} >
             {children}
         </div>
     );
